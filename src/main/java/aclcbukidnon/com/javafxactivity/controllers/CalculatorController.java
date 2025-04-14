@@ -1,65 +1,77 @@
 package aclcbukidnon.com.javafxactivity.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class CalculatorController {
+    @FXML
+    private Label display;
+
+    private StringBuilder input = new StringBuilder();
+    private String operator = "";
+    private double firstOperand = 0;
 
     @FXML
-    private Label labelCount;
-
-    private String currentExpression = "";
-
-
-    @FXML
-    private void onButtonClick() {
-        Button button = (Button) labelCount.getScene().getFocusOwner();
-        String text = button.getText();
-
-
-        currentExpression += text;
-
-
-        labelCount.setText(currentExpression);
+    private void initialize() {
+        display.setText("0");
     }
 
-
     @FXML
-    private void onEqualsClick() {
-        try {
+    private void handleButtonPress(javafx.event.ActionEvent event) {
+        String value = ((Button) event.getSource()).getText();
 
-            double result = evaluateExpression(currentExpression);
-            labelCount.setText(String.valueOf(result));
-            currentExpression = String.valueOf(result);
-        } catch (Exception e) {
-            labelCount.setText("Error");
-            currentExpression = "";
+        switch (value) {
+            case "CLEAR" -> {
+                input.setLength(0);
+                operator = "";
+                firstOperand = 0;
+                display.setText("0");
+            }
+            case "BCKSPC" -> {
+                if (input.length() > 0) {
+                    input.setLength(input.length() - 1);
+                    display.setText(input.length() == 0 ? "0" : input.toString());
+                }
+            }
+            case "+", "-", "*", "/" -> {
+                if (input.length() > 0) {
+                    firstOperand = Double.parseDouble(input.toString());
+                    operator = value;
+                    input.setLength(0);
+                    display.setText("0");
+                }
+            }
+            case "=" -> {
+                if (input.length() > 0 && !operator.isEmpty()) {
+                    double secondOperand = Double.parseDouble(input.toString());
+                    double result = calculate(firstOperand, secondOperand, operator);
+                    display.setText(String.valueOf(result));
+                    input.setLength(0);
+                    input.append(result);
+                    operator = "";
+                }
+            }
+            case "." -> {
+                if (!input.toString().contains(".")) {
+                    input.append(".");
+                    display.setText(input.toString());
+                }
+            }
+            default -> {
+                input.append(value);
+                display.setText(input.toString());
+            }
         }
     }
 
-
-    @FXML
-    private void onClearClick() {
-        currentExpression = "";
-        labelCount.setText("0");
-    }
-
-
-    @FXML
-    private void onBackspaceClick() {
-        if (!currentExpression.isEmpty()) {
-            currentExpression = currentExpression.substring(0, currentExpression.length() - 1);
-        }
-        labelCount.setText(currentExpression.isEmpty() ? "0" : currentExpression);
-    }
-
-
-    private double evaluateExpression(String expression) throws Exception {
-
-
-        javax.script.ScriptEngine engine = new javax.script.ScriptEngineManager().getEngineByName("JavaScript");
-        return ((Number) engine.eval(expression)).doubleValue();
+    private double calculate(double a, double b, String op) {
+        return switch (op) {
+            case "+" -> a + b;
+            case "-" -> a - b;
+            case "*" -> a * b;
+            case "/" -> b != 0 ? a / b : 0;
+            default -> 0;
+        };
     }
 }
-
