@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox alignment="CENTER" spacing="20.0"
-      prefHeight="500.0" prefWidth="400.0"
-      xmlns="http://javafx.com/javafx/11.0.14-internal"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="aclcbukidnon.com.javafxactivity.controllers.TrafficLightController">
+<VBox alignment="CENTER" prefHeight="540.0" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aclcbukidnon.com.javafxactivity.controllers.TrafficLightController">
 
    <padding>
-      <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
+   <Circle fx:id="redLight" fill="DARKRED" radius="66.0" stroke="BLACK" strokeType="INSIDE" />
+   <Circle fx:id="yellowLight" fill="GOLDENROD" radius="66.0" stroke="BLACK" strokeType="INSIDE" />
+   <Circle fx:id="greenLight" fill="DARKGREEN" radius="66.0" stroke="BLACK" strokeType="INSIDE" />
 
-   <HBox spacing="20" alignment="CENTER">
-      <Circle fx:id="redLight" fill="DARKRED" radius="50.0" stroke="BLACK" strokeType="INSIDE"/>
-      <Circle fx:id="yellowLight" fill="GOLDENROD" radius="50.0" stroke="BLACK" strokeType="INSIDE"/>
-      <Circle fx:id="greenLight" fill="DARKGREEN" radius="50.0" stroke="BLACK" strokeType="INSIDE"/>
-   </HBox>
+   <HBox alignment="CENTER" spacing="20" />
 
-   <HBox spacing="20" alignment="CENTER">
-      <Button fx:id="startButton" text="Start" onAction="#startSimulation"/>
-      <Button fx:id="stopButton" text="Stop" onAction="#stopSimulation"/>
+   <HBox alignment="CENTER" spacing="20">
+      <Button fx:id="startButton" onAction="#startSimulation" prefHeight="26.0" prefWidth="125.0" text="Start" />
+      <Button fx:id="stopButton" onAction="#stopSimulation" prefHeight="26.0" prefWidth="124.0" text="Stop" />
    </HBox>
 </VBox>

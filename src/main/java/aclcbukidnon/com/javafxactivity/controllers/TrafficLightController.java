@@ -39,7 +39,7 @@ public class TrafficLightController {
         updateLights();
 
         timeline = new Timeline(
-                new KeyFrame(Duration.seconds(3), e -> onTimerChange())
+                new KeyFrame(Duration.seconds(2), e -> onTimerChange())
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
