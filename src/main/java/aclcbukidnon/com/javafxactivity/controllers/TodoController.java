@@ -14,7 +14,7 @@ public class TodoController {
     @FXML
     public void initialize(){
         ObservableList<String> initialItems = FXCollections.observableArrayList();
-        initialItems.add("Remove Me");
+        initialItems.add("add list");
 
         todoList.setItems(initialItems);
         todoList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
